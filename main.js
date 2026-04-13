@@ -38,14 +38,14 @@
 
 
 //Code Question 3
-const hamburger = {
+/*const hamburger = {
     name: "cheese burger",
     weight: 250,
     maker: {
         name: "Burger King",
         restaurant: {
             name: "Burger King Italia",
-            address: "Via Roma 123, Milano"
+            address: "Via Roma 123, Milano",
             isOpen: true,
         },
         age: 50,
@@ -54,6 +54,11 @@ const hamburger = {
 
 const secondHamburger = structuredClone(hamburger);
 const thirdHamburger = structuredClone(hamburger);
+*/
+
+
+
+
 
 /*L'oggetto iniziale hamburger (3 oggetti):
 - oggetto hamburger con le proprietà name, weight e maker
@@ -70,12 +75,103 @@ const thirdHamburger = structuredClone(hamburger);
   -Totale oggetti in memoria dopo l'esecuzione del codice: 
    9 (hamburger, maker, restaurant, secondHamburger, secondHamburger.maker, secondHamburger.maker.restaurant, thirdHamburger, thirdHamburger.maker, thirdHamburger.maker.restaurant)
    
+*/
+
+/*Code Question 4
+const chef = {
+    name: "Gordon Ramsay",
+    age: 54,
+    makeBurger: (num = 1) => {
+        console.log(`Ecco ${num} hamburger per te!`);
+    },
+}
+
+const restaurant = {
+    name: "Hell's Kitchen",
+    address: {
+        street: "Main St",
+        number: 123,
+    },
+    openingDate: new Date("2026-04-11"),
+    isOpen: false,
+
+};
 
 
+Commento 1: Modi migliori per clonare l'oggetto chef
+Il modo migliore per clonare l'oggetto chef è utilizzare structuredClone(chef),
+perché crea una copia profonda che preserva tutte le proprietà, inclusi i metodi (funzioni).
+Questo è importante perché chef contiene un metodo makeBurger, che sarebbe perso con JSON.parse(JSON.stringify(chef)).
+Inoltre, structuredClone evita riferimenti condivisi, prevenendo modifiche indesiderate all'originale.
+*/
+
+/*
+Commento 2: Modi migliori per clonare l'oggetto restaurant
+Il modo migliore per clonare l'oggetto restaurant è utilizzare structuredClone(restaurant),
+poiché crea una copia profonda che gestisce correttamente oggetti annidati come address e tipi speciali come Date (openingDate).
+JSON.parse(JSON.stringify(restaurant)) convertirebbe openingDate in una stringa, perdendo la funzionalità di Date.
+structuredClone garantisce che la copia sia completamente indipendente, evitando side effects.
+*/
 
 
+/*Code Question 5
 
+const hamburger = {
+    name: "cheese burger",
+    weight: 250,
+    maker: {
+        name: "Burger King",
+        restaurant: {
+            name: "Burger King Italia",
+            address: "Via Roma 123, Milano",
+            isOpen: true,
+        },
+        age: 50,
+    }
+};
 
+const newRestaurant = {...hamburger .maker .restaurant};
+newRestaurant.name = "McDonald's Italia";
+newRestaurant.address = "Via Milano 456, Roma";
+const seondBurger = {...hamburger};
+secondBurger.maker.restaurant = newRestaurant;
+secondBurger.maker.name = "McDonald's";
 
+console.log(hamburger . maker .name); // Output: "McDonald's"
+console.log(seondBurger . maker .name); // Output: "McDonald's"
+console.log(hamburger . maker .restaurant .name); // Output: "McDonald's Italia"
+console.log(seondBurger . maker .restaurant .name); // Output: "McDonald's Italia"
 
+totale oggetti in memoria dopo l'esecuzione del codice: 9
+ - chefe (1 oggetto)
+ - restaurant (1 oggetto)
+ -address (1 oggetto)
+ -date (1 oggetto)
+ -secondBurger (1 oggetto)
+ secondrestaurant (1 oggetto)
+ -nuovo address (1 oggetto)
+-nuovo date (1 oggetto)
+-nuovo restaurant (1 oggetto)
+
+-Riga 1-9: viene creato un oggetto hamburger con le proprietà name, weight e maker in memoria. 
+maker è un oggetto che contiene a sua volta un oggetto restaurant.
+-Riga 11: viene creato un nuovo oggetto newRestaurant utilizzando l'operatore spread (...), 
+che copia tutte le proprietà di hamburger.maker.restaurant in un nuovo oggetto.
+-Riga 12-13: vengono modificate le proprietà name e address di newRestaurant, 
+cambiandole rispettivamente in "McDonald's Italia" e "Via Milano 456, Roma".
+-Riga 14: viene creato un nuovo oggetto secondBurger utilizzando l'operatore spread (...),
+che copia tutte le proprietà di hamburger in un nuovo oggetto. Tuttavia, poiché hamburger.maker è un oggetto, 
+secondBurger.maker punta allo stesso oggetto in memoria di hamburger.maker.
+-Riga 15: viene modificata la proprietà restaurant di secondBurger.maker,
+cambiandola in newRestaurant. Poiché secondBurger.maker e hamburger.maker condividono lo stesso riferimento,
+questa modifica influisce anche su hamburger.maker.restaurant, che ora punta a newRestaurant.
+-Riga 16: viene modificata la proprietà name di secondBurger.maker, cambiandola in "McDonald's". 
+Poiché secondBurger.maker e hamburger.maker condividono lo stesso riferimento, questa modifica influisce anche su hamburger.maker.name, che ora è "McDonald's".
+-Riga 18: viene stampato il valore di hamburger.maker.name, che è "McDonald's" a causa della modifica fatta tramite secondBurger.maker.
+-Riga 19: viene stampato il valore di secondBurger.maker.name, che è anch'esso "McDonald's" a causa della stessa modifica.
+-Riga 20: viene stampato il valore di hamburger.maker.restaurant.name, che è "McDonald's Italia" a causa della modifica fatta tramite secondBurger.maker.restaurant.
+-Riga 21: viene stampato il valore di secondBurger.maker.restaurant.name, che è anch'esso "McDonald's Italia" a causa della stessa modifica.
+-In totale, dopo l'esecuzione del codice, ci sono 9 oggetti in memoria: 
+hamburger, hamburger.maker, hamburger.maker.restaurant, newRestaurant, secondBurger, secondBurger.maker, secondBurger.maker.restaurant, 
+e i due oggetti address e date che sono stati copiati da hamburger.maker.restaurant.
 */
