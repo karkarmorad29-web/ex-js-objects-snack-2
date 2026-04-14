@@ -85,7 +85,7 @@ const chef = {
         console.log(`Ecco ${num} hamburger per te!`);
     },
 }
-
+/*
 const restaurant = {
     name: "Hell's Kitchen",
     address: {
@@ -175,3 +175,77 @@ Poiché secondBurger.maker e hamburger.maker condividono lo stesso riferimento, 
 hamburger, hamburger.maker, hamburger.maker.restaurant, newRestaurant, secondBurger, secondBurger.maker, secondBurger.maker.restaurant, 
 e i due oggetti address e date che sono stati copiati da hamburger.maker.restaurant.
 */
+
+/*Code Question 6
+const chef = {
+    name: "Gordon Ramsay",
+    age: 54,
+    makeBurger: (num = 1) => {
+        console.log(`Ecco ${num} hamburger per te!`);
+    },
+    restaurant: {
+    name: "Hell's Kitchen",
+    welcomeClient: () => {
+        console.log("Benvenuto da Hell's Kitchen!");
+    },
+    address: {
+    street: "Main St",
+    number: 123,
+    showAddress: () => {
+        console.log("L'indirizzo del ristorante è Main St 123");
+    }
+},
+       isOpen: true,
+   }
+}
+
+/*
+Il miglior metodo per clonare l'oggetto chef è utilizzare structuredClone(chef).
+Questo perché structuredClone crea una copia profonda dell'oggetto, preservando tutte le proprietà,
+inclusi i metodi come makeBurger, welcomeClient e showAddress, che sono funzioni.
+A differenza di JSON.parse(JSON.stringify(chef)), che perderebbe tutti i metodi poiché le funzioni non sono serializzabili in JSON,
+structuredClone mantiene l'integrità dell'oggetto originale e gestisce correttamente gli oggetti annidati come restaurant e address.
+Inoltre, evita riferimenti condivisi, prevenendo modifiche accidentali all'oggetto originale o ai suoi sotto-oggetti.
+*/
+
+/*Snack Bonus
+function deepCopy(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj; // Ritorna il valore primitivo o null
+    }
+
+ Crea un nuovo oggetto o array a seconda del tipo di obj
+    const clonedObj = Array.isArray(obj) ? [] : {};
+
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            clonedObj[key] = deepCopy(obj[key]);
+        }
+    }
+    return clonedObj;
+}
+
+Il codice definisce una funzione deepCopy che esegue una copia profonda di un oggetto o array.
+- La funzione verifica se l'input obj è null o non è un oggetto (ovvero è un valore primitivo).
+ In tal caso, restituisce direttamente il valore, poiché i valori primitivi sono immutabili e non necessitano di copia.
+- Se obj è un oggetto o un array, viene creato un nuovo oggetto vuoto (clonedObj) o un array vuoto a seconda del tipo di obj.
+- La funzione itera su tutte le proprietà di obj utilizzando un ciclo for...in e verifica se la proprietà è effettivamente una proprietà dell'oggetto (non ereditata) con hasOwnProperty.
+- Per ogni proprietà, la funzione chiama ricorsivamente deepCopy su obj[key] per copiare il valore associato a quella proprietà, 
+e assegna il risultato a clonedObj[key].
+- Infine, la funzione restituisce clonedObj, che è una copia profonda dell'oggetto originale.
+
+test (esempio basato su una possibile "Question 6")
+
+const codeQuestion6 = {
+nome: "Esempio",
+livelli: [1, 2, {valore: 3}],
+saluta: function() {
+return `Ciao, sono ${this.nome}`;
+}
+};
+const copiaOggetto = deepCopy(codeQuestion6);
+
+//verifica
+copiaOggetto.nome = " Copia Modificata";
+console.log("Oggetto originale:", codeQuestion6.saluta()); // Output: "Ciao, sono Esempio"
+console.log("Oggetto copiato:", copiaOggetto.saluta()); // Output: "Ciao, sono Copia Modificata"
